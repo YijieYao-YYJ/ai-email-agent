@@ -1,42 +1,38 @@
-import os
+# from agent import run_agent
+#
+#
+# email = """
+# Hallo,
+#
+# ich bin Kunde C001.
+# Meine Bestellung 12345 ist noch nicht angekommen.
+#
+# Können Sie bitte meine Kundendaten und
+# den Bestellstatus prüfen?
+#
+# Viele Grüße
+# Max
+# """
+#
+# answer = run_agent(email)
+#
+# print("\n--- Final Answer ---")
+# print(answer)
 
-from dotenv import load_dotenv
-from google import genai
 
-load_dotenv()
+from agent import run_agent
 
-api_key = os.getenv("GEMINI_API_KEY")
-
-if not api_key:
-    raise ValueError("GEMINI_API_KEY was not found.")
-
-client = genai.Client(api_key=api_key)
 
 email = """
 Hallo,
 
-meine Bestellung 12345 ist seit einer Woche
-noch nicht angekommen. Können Sie bitte prüfen,
-wo sich mein Paket befindet?
+meine E-Mail-Adresse ist max@example.com.
+Wo ist meine Bestellung?
 
 Viele Grüße
-Max
 """
 
-response = client.interactions.create(
-    model="gemini-3.6-flash",
-    input=f"""
-Analysiere die folgende Kunden-E-Mail.
+answer = run_agent(email)
 
-Bestimme:
-- Kategorie
-- Bestellnummer
-- Sprache
-- Dringlichkeit
-
-E-Mail:
-{email}
-"""
-)
-
-print(response.output_text)
+print("\n--- Final Answer ---")
+print(answer)
